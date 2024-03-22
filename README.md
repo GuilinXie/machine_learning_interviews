@@ -1,10 +1,8 @@
+# Table of Contents
 
-Table of Contents
-
-* ML Coding Questions
-* ML System Design
-
-* ML Take Home Challenge
+* [ML Coding Questions](#ML-Coding-Questions)
+* [ML System Design](#ML-System-Design)
+* [ML Take Home Challenge](#ML-Take-Home-Challenge)
 
 
 # ML Coding Questions
@@ -26,7 +24,7 @@ Table of Contents
 ## ML design framework
 
 1. Clarifying requirements
-2. Framing the probelm as an ML task
+2. Framing the problem as an ML task
 3. Data Preprocessing
 
    1. Data Preparation
@@ -58,11 +56,11 @@ Table of Contents
 1. To increase the number of orders?
 2. To increase the total revenue, sales by 20%?
 3. To increase the clicks?
-4. To increase the usage time, user retention?
+4. To increase the usage time, users retention?
 
 ### Features the system needs to support
 
-1. Any interactions, such as 'Like', 'Dislike', 'Click' etc. These could be used as natrual labels.
+1. Any interactions, such as 'Like', 'Dislike', 'Click' etc. These could be used as natural labels.
 
 ### Data
 
@@ -85,7 +83,7 @@ Table of Contents
 
 ### Performance
 
-* How fast must the predition be, real-time or not real-time?
+* How fast must the prediction be, real-time or not real-time?
 * Accuracy vs Latency, which is more important?
 * Precision vs Recall, which is more important?
 
@@ -111,9 +109,9 @@ A ML objective is one that ML models can solve.
   * Binary classification
   * Multiclass classification
 * With labeled data
-  * Supervisied learning
+  * Supervised learning
 * Without labeled data
-  * Unsupervisied learning
+  * Unsupervised learning
 * Input is structured data
   * Decision Tree, Linear Model, SVM, KNN, Naive Bayes, Deep Learning
 * Input is unstructured data
@@ -179,7 +177,7 @@ A ML objective is one that ML models can solve.
 
          1. Defaults
          2. Mean, Median, or Mode(the most common value)
-   2. Deiscretization( Bucketing)
+   2. Discretization( Bucketing)
 
       1. Convert a continuous feature into a categorical feature
       2. Reduce the number of categories for a categorical feature
@@ -189,7 +187,7 @@ A ML objective is one that ML models can solve.
 
       1. Normalization (min-max scaling)
          z = (x - x_min) / (x_max - x_min)
-         Normalizaiton doesn't change the distribution of the feature.
+         Normalization doesn't change the distribution of the feature.
       2. Standardization (Z-score normalization)
 
          1. z = (x- u) / sigma
