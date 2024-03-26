@@ -1,8 +1,4 @@
-Table of Contents
 
-* ML Coding Questions
-* ML System Design
-* ML Take Home Challenge
 
 # ML Coding Questions
 
