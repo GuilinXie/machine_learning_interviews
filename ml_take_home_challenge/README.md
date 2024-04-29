@@ -202,13 +202,131 @@ pd.set_option("display.max_columns", None)
     1. ```
        clean_data_df.to_csv('./data/clean_data.csv', index=False)
        ```
-14. fdfa
+14. 
+15. fdfa
 
 ## Text
 
 ## Image
 
 ## Time Series
+
+# Feature Selection
+
+## Tree based
+
+```
+from sklearn.ensemble import ExtraTreesClassifier
+
+arr_new = df.values       # Pandas to array
+Y_ch = df[:, 1:2]         # Get target column
+X_ch = df[:, 3:12]        # Get features' column
+
+model_sl = ExtraTreesClassifier()
+model_sl.fit(X_ch, Y_ch)     # Train the model
+print(model_sl.feature_importance_)    # Get the feature importance
+```
+
+# Data Split
+
+```
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncode()
+le.fit(Y_ch.tolist())
+Y_ch = le.transform(Y_ch.tolist())
+
+X_train, x_test, y_train, y_test = train_test_split(X_ch[:, 3:8], Y_ch, test_size=0.25, random_state=0)
+```
+
+# Model Training & KFold Crossvalidation
+
+```
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier  
+from sklearn.model_selection import KFold, cross_val_score
+
+# Initialize models
+models = {}
+models["LDA"] = LinearDiscriminantAnalysis()
+models['NB'] = MultinomialNB()
+models['KNN'] = KNeighborsClassifier()
+
+# Train models
+results = []
+for key in models:
+	kfold = KFold(10)    # 10 fold
+	cv_result = cross_val_score(models[key], x_train, y_train, scoring = 'neg_mean_squared_error', cv=kfold)
+	results.append(cv_result)
+	print('%s:%f(%f)'%(key, cv_result.mean(), cv_result.std()))		# 输出均方误差的均值（离0越近越好）、标准方差M o de z z
+
+```
+
+# Model optimization
+
+## KNN
+
+```
+from sklearn.model_selection import GridSearchCV
+
+param_grid_knn = {'n_neighbors': [1, 2, 3, 4, 5, 6, 7, 8]}   
+model_knn_ty = KNeighborsClassifier()  
+kfold = KFold(10)
+grid = GridSearchCV(
+		stimator=model_knn_ty,
+		param_grid=param_grid_knn,
+		scoring='neg_mean_squared_error',
+		cv=kfold)
+grid_result = grid.fit(x_train, y_train)
+print("Best: %s. Using: %s" %(grid_result.best_score_, grid_result.best_params_))
+```
+
+## Naive Bayes
+
+```
+from sklearn.model_selection import GridSearchCV
+
+param_grid_nb = {'alpha': [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]}   
+model_nb_ty = MultinomialNB()  
+kfold = KFold(10)
+grid = GridSearchCV(
+		stimator=model_nb_ty,
+		param_grid=param_grid_nb,
+		scoring='neg_mean_squared_error',
+		cv=kfold)  
+grid_result = grid.fit(x_train, y_train)
+print("Best: %s. Using: %s" %(grid_result.best_score_, grid_result.best_params_))
+```
+
+## LDA
+
+```
+from sklearn.model_selection import GridSearchCV
+param_grid_lda = {'solver': ['lsqr', 'eigen']}
+model_lda_ty = LinearDiscriminantAnalysis(shrinkage='auto')
+kfold = KFold(10)
+grid = GridSearchCV(
+		stimator=model_lda_ty,
+		param_grid=param_grid_lda,
+		scoring='neg_mean_squared_error',
+		cv=kfold)  
+grid_result = grid.fit(x_train, y_train)
+print("Best: %s. Using: %s" %(grid_result.best_score_, grid_result.best_params_))
+```
+
+## Filnal Model
+
+```
+model_last = {}
+models_last['LDA'] = LinearDiscriminantAnalysis(solver='lsqr',shrinkage='auto')   
+models_last['NB'] = MultinomialNB(alpha=0)
+models_last['KNN'] = KNeighborsClassifier(n_neighbors=5)  
+
+...
+```
+
 
 
 # Reference
@@ -218,3 +336,5 @@ https://www.kaggle.com/code/prashant111/k-means-clustering-with-python
 https://zhuanlan.zhihu.com/p/562538185
 
 https://www.kaggle.com/code/jaganadhg/fb-live-selling-data-analysis
+
+https://zhuanlan.zhihu.com/p/112794090
